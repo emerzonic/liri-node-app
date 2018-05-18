@@ -32,7 +32,6 @@ function readRandom() {
 }
 
 function check() {
-
     if (input === 'my-tweets') {
         tweetsIt();
     } else if (input === 'spotify-this-song') {
@@ -54,7 +53,6 @@ function movieIt() {
     request(`http://www.omdbapi.com/?t= ${movieInput} &apikey=2139148`, function (error, response, body) {
         console.log('error:', error); // Print the error if one occurred
         console.log('statusCode:', response && response.statusCode); // Print the response status code if a
-        // console.log(body); // Print the HTML for the Google homepage.
         var movie = JSON.parse(body);
         console.log('\n');
         console.log('======================================');
@@ -94,26 +92,24 @@ function tweetsIt() {
 function spotifyIt() {
     var song = input2;
     if (song === undefined) {
-        song = 'The Sign';
+        song = 'The Sign Ace of Base';
     }
     spotify
         .search({
             type: 'track',
             query: song,
-            limit: 1
+            limit: 4
         })
         .then(function (response) {
+            // console.log(response.tracks.items[0]);
             var track = response.tracks;
             console.log('\n');
             console.log('===========================================');
-            console.log('************* MY SONG RESULT ***********');
+            console.log('**** MY SONG RESULT ***********');
             console.log('===========================================');
             console.log('Artist: ' + track.items[0].artists[0].name);
-            console.log('==========================');
             console.log('Song: ' + track.items[0].name);
-            console.log('==========================');
             console.log('Url: ' + track.items[0].preview_url);
-            console.log('==========================');
             console.log('Album: ' + track.items[0].album.name);
             console.log('===========================================');
             console.log('\n');
