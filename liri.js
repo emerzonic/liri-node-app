@@ -1,9 +1,10 @@
 require("dotenv").config();
-var request = require("request"),
+var fs = require("fs"),
+    keys = require('./keys.js'),
+    request = require("request"),
     Spotify = require('node-spotify-api'),
-    Twitter = require('twitter'),
-    fs = require("fs"),
-    keys = require('./keys.js');
+    Twitter = require('twitter');
+
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -11,8 +12,9 @@ var client = new Twitter(keys.twitter);
 var input = process.argv[2];
 var input2 = process.argv[3];
 
+//check if the user passes a command
 if (input === 'do-what-it-says') {
-    readRandom();
+    readRandom(); //read from the file
 } else {
     check();
 }
@@ -39,7 +41,7 @@ function check() {
     } else if (input === 'movie-this') {
         movieIt();
     } else {
-        console.log('Oops! You did not provide a command.');
+        console.log('Oops! You did not provide a command. my-tweets for tweets, spotify-this-song for song, and movie-this for movie');
     }
     addToLogs();
 }
@@ -61,7 +63,7 @@ function movieIt() {
         console.log(`Title :${movie.Title}`);
         console.log(`Year :${movie.Year}`);
         console.log(`IMDB Rating :${movie.imdbRating}`);
-        console.log(`Rotten Tomatoes Rating :${movie.Ratings[1].Value}`);
+        console.log(`Rotten Tomatoes Rating :${movie.Ratings[0].Value}`);
         console.log(`Country :${movie.Country}`);
         console.log(`Language :${movie.Language}`);
         console.log(`Plot :${movie.Plot}`);
