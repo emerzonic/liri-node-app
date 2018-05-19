@@ -5,13 +5,11 @@ var fs = require("fs"),
     Spotify = require('node-spotify-api'),
     Twitter = require('twitter');
 
-
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
 var input = process.argv[2];
 var input2 = process.argv[3];
-
 
 //check if the user passes a command
 if (input === 'do-what-it-says') {
@@ -20,6 +18,7 @@ if (input === 'do-what-it-says') {
     check();
 }
 
+//this function reads from the random.txt file
 function readRandom() {
     fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
@@ -34,6 +33,7 @@ function readRandom() {
     });
 }
 
+//this function validate the command type and calls it's request function
 function check() {
     if (input === 'my-tweets') {
         tweetsIt();
@@ -47,7 +47,7 @@ function check() {
     addToLogs();
 }
 
-
+//This function makes a request to the omdbapi
 function movieIt() {
     var movieInput = input2;
     if (movieInput === undefined) {
@@ -65,7 +65,7 @@ function movieIt() {
         console.log('======================================');
         console.log(`Title: ${movie.Title}`);
         console.log(`Year: ${movie.Year}`);
-        console.log(`IMDB Rating: ${movie.imdbRating}`);
+        console.log(!undefined ? `IMDB Rating: ${movie.imdbRating}` : 'IMDB Rating: N/A');
         console.log(!undefined ? `Rotten Tomatoes Rating: ${movie.Ratings[1].Value}` : 'Rotten Tomatoes Rating: N/A');
         console.log(`Country: ${movie.Country}`);
         console.log(`Language: ${movie.Language}`);
@@ -76,7 +76,7 @@ function movieIt() {
     });
 }
 
-
+//This function makes a request to the tweeter API and display the user's last 20 tweets
 function tweetsIt() {
     var params = {
         screen_name: '@emandoe18'
@@ -84,19 +84,18 @@ function tweetsIt() {
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
             for (var j = 0; j < 20; j++) {
-               var tweet = tweets[j];
+                var tweet = tweets[j];
                 console.log(`MY TWEET #${j+1}: *******************************`);
                 console.log(`Tweet: ${tweet.text}`);
                 console.log(`created at: ${tweet.created_at}`);
                 console.log('============================================================\n');
-                // });
             }
         }
     });
 }
 
 
-
+//This function makes a request to the spotify API
 function spotifyIt() {
     var song = input2;
     if (song === undefined) {
@@ -109,7 +108,6 @@ function spotifyIt() {
             limit: 4
         })
         .then(function (response) {
-            // console.log(response.tracks.items[0]);
             var track = response.tracks;
             console.log('\n');
             console.log('**** MY SONG RESULT ***********');
@@ -124,7 +122,7 @@ function spotifyIt() {
         });
 }
 
-//this function adds the user input to the random.txt file
+//this function log the user input to the logs.txt file
 function addToLogs() {
     fs.appendFile('logs.txt', `${input}\n`, function (err) {
         if (err) {
