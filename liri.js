@@ -50,9 +50,10 @@ function check() {
 function movieIt() {
     var movieInput = input2;
     if (movieInput === undefined) {
-        movieInput = 'Mr. Nobody';
+        movieInput = 'Mr Nobody';
+        console.log(movieInput);
     }
-    request(`http://www.omdbapi.com/?t= ${movieInput} &apikey=2139148`, function (error, response, body) {
+    request(`http://www.omdbapi.com/?t= ${movieInput} &apikey=213914`, function (error, response, body) {
         console.log('error:', error); // Print the error if one occurred
         console.log('statusCode:', response && response.statusCode); // Print the response status code if a
         var movie = JSON.parse(body);
@@ -63,7 +64,7 @@ function movieIt() {
         console.log(`Title :${movie.Title}`);
         console.log(`Year :${movie.Year}`);
         console.log(`IMDB Rating :${movie.imdbRating}`);
-        console.log(`Rotten Tomatoes Rating :${movie.Ratings[0].Value}`);
+        console.log(`Rotten Tomatoes Rating :${movie.Ratings[1].Value}`);
         console.log(`Country :${movie.Country}`);
         console.log(`Language :${movie.Language}`);
         console.log(`Plot :${movie.Plot}`);
@@ -121,6 +122,7 @@ function spotifyIt() {
         });
 }
 
+//this function adds the user input to the random.txt file
 function addToLogs() {
     fs.appendFile('logs.txt', `${input}\n`, function (err) {
         if (err) {
