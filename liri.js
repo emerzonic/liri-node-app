@@ -12,6 +12,7 @@ var client = new Twitter(keys.twitter);
 var input = process.argv[2];
 var input2 = process.argv[3];
 
+
 //check if the user passes a command
 if (input === 'do-what-it-says') {
     readRandom(); //read from the file
@@ -51,25 +52,27 @@ function movieIt() {
     var movieInput = input2;
     if (movieInput === undefined) {
         movieInput = 'Mr Nobody';
-        console.log(movieInput);
     }
-    request(`http://www.omdbapi.com/?t= ${movieInput} &apikey=213914`, function (error, response, body) {
-        console.log('error:', error); // Print the error if one occurred
-        console.log('statusCode:', response && response.statusCode); // Print the response status code if a
+    request(`http://www.omdbapi.com/?t= ${movieInput} &apikey=2139148`, function (error, response, body) {
+        if (error || response.statusCode !== 200) {
+            console.log('error:', error); // Print the error if one occurred 
+            console.log('statusCode:', response && response.statusCode);
+        }
         var movie = JSON.parse(body);
         console.log('\n');
         console.log('======================================');
         console.log('******** MY MOVIE RESULT *************');
         console.log('======================================');
-        console.log(`Title :${movie.Title}`);
-        console.log(`Year :${movie.Year}`);
-        console.log(`IMDB Rating :${movie.imdbRating}`);
-        console.log(`Rotten Tomatoes Rating :${movie.Ratings[1].Value}`);
-        console.log(`Country :${movie.Country}`);
-        console.log(`Language :${movie.Language}`);
-        console.log(`Plot :${movie.Plot}`);
-        console.log(`Actors :${movie.Actors}`);
+        console.log(`Title: ${movie.Title}`);
+        console.log(`Year: ${movie.Year}`);
+        console.log(`IMDB Rating: ${movie.imdbRating}`);
+        console.log(!undefined ? `Rotten Tomatoes Rating: ${movie.Ratings[1].Value}` : 'Rotten Tomatoes Rating: N/A');
+        console.log(`Country: ${movie.Country}`);
+        console.log(`Language: ${movie.Language}`);
+        console.log(`Plot: ${movie.Plot}`);
+        console.log(`Actors: ${movie.Actors}`);
         console.log('=======================================');
+        console.log('\n');
     });
 }
 
@@ -80,16 +83,19 @@ function tweetsIt() {
     };
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
-            tweets.forEach(element => {
-                console.log('\n');
-                console.log('****************** MY TWEETS *******************************');
-                console.log('============================================================');
-                console.log('Tweet: ' + element.text + '.created at: ' + element.created_at);
-                console.log('============================================================');
-            });
+            for (var j = 0; j < 20; j++) {
+               var tweet = tweets[j];
+                console.log(`MY TWEET #${j+1}: *******************************`);
+                console.log(`Tweet: ${tweet.text}`);
+                console.log(`created at: ${tweet.created_at}`);
+                console.log('============================================================\n');
+                // });
+            }
         }
     });
 }
+
+
 
 function spotifyIt() {
     var song = input2;
@@ -106,9 +112,7 @@ function spotifyIt() {
             // console.log(response.tracks.items[0]);
             var track = response.tracks;
             console.log('\n');
-            console.log('===========================================');
             console.log('**** MY SONG RESULT ***********');
-            console.log('===========================================');
             console.log('Artist: ' + track.items[0].artists[0].name);
             console.log('Song: ' + track.items[0].name);
             console.log('Url: ' + track.items[0].preview_url);
