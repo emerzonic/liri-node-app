@@ -70,7 +70,6 @@ function movieIt() {
         console.log(`Plot :${movie.Plot}`);
         console.log(`Actors :${movie.Actors}`);
         console.log('=======================================');
-        console.log('\n');
     });
 }
 
@@ -115,7 +114,6 @@ function spotifyIt() {
             console.log('Url: ' + track.items[0].preview_url);
             console.log('Album: ' + track.items[0].album.name);
             console.log('===========================================');
-            console.log('\n');
         })
         .catch(function (err) {
             console.log(err);
