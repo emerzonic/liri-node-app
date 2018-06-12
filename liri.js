@@ -53,34 +53,32 @@ function movieIt() {
     if (movieInput === undefined) {
         movieInput = 'Mr Nobody';
     }
-    request(`http://www.omdbapi.com/?t= ${movieInput} &apikey=2139148`, function (error, response, body) {
+    request(`http://www.omdbapi.com/?t=${movieInput}&apikey=2139148`, function (error, response, body) {
         if (error || response.statusCode !== 200) {
             console.log('error:', error); // Print the error if one occurred 
             console.log('statusCode:', response && response.statusCode);
         }
         var movie = JSON.parse(body);
+        console.log(movie.Ratings);
         console.log('\n');
-        console.log('======================================');
+        console.log('======================================\n');
         console.log('******** MY MOVIE RESULT *************');
         console.log('======================================');
         console.log(`Title: ${movie.Title}`);
         console.log(`Year: ${movie.Year}`);
-        console.log(!undefined ? `IMDB Rating: ${movie.imdbRating}` : 'IMDB Rating: N/A');
-        console.log(!undefined ? `Rotten Tomatoes Rating: ${movie.Ratings[1].Value}` : 'Rotten Tomatoes Rating: N/A');
+        console.log(!movie.imdbRating ? 'IMDB Rating: N/A' : `IMDB Rating: ${movie.imdbRating}`);
+        console.log(!movie.Ratings[1] ? 'Rotten Tomatoes Rating: N/A' : `Rotten Tomatoes Rating: ${movie.Ratings[1].Value}`);
         console.log(`Country: ${movie.Country}`);
         console.log(`Language: ${movie.Language}`);
         console.log(`Plot: ${movie.Plot}`);
         console.log(`Actors: ${movie.Actors}`);
-        console.log('=======================================');
-        console.log('\n');
+        console.log('=======================================\n');
     });
 }
 
 //This function makes a request to the tweeter API and display the user's last 20 tweets
 function tweetsIt() {
-    var params = {
-        screen_name: '@emandoe18'
-    };
+    var params = {};
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
             for (var j = 0; j < 20; j++) {
@@ -124,7 +122,7 @@ function spotifyIt() {
 
 //this function log the user input to the logs.txt file
 function addToLogs() {
-    fs.appendFile('logs.txt', `${input}\n`, function (err) {
+    fs.appendFile('logs.txt',`${input}\n`, function (err) {
         if (err) {
             console.log(err);
         }
