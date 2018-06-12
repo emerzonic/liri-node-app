@@ -59,14 +59,13 @@ function movieIt() {
             console.log('statusCode:', response && response.statusCode);
         }
         var movie = JSON.parse(body);
-        console.log(movie.Ratings);
         console.log('\n');
         console.log('======================================\n');
         console.log('******** MY MOVIE RESULT *************');
         console.log('======================================');
         console.log(`Title: ${movie.Title}`);
         console.log(`Year: ${movie.Year}`);
-        console.log(!movie.imdbRating ? 'IMDB Rating: N/A' : `IMDB Rating: ${movie.imdbRating}`);
+        console.log(!movie? 'IMDB Rating: N/A' : `IMDB Rating: ${movie.imdbRating}`);
         console.log(!movie.Ratings[1] ? 'Rotten Tomatoes Rating: N/A' : `Rotten Tomatoes Rating: ${movie.Ratings[1].Value}`);
         console.log(`Country: ${movie.Country}`);
         console.log(`Language: ${movie.Language}`);
