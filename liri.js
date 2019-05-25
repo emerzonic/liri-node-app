@@ -50,7 +50,7 @@ function check() {
 //This function makes a request to the omdbapi
 function movieIt() {
     var movieInput = input2;
-    if (movieInput === undefined) {
+    if (!movieInput) {
         movieInput = 'Mr Nobody';
     }
     request(`http://www.omdbapi.com/?t=${movieInput}&apikey=2139148`, function (error, response, body) {
@@ -95,7 +95,7 @@ function tweetsIt() {
 //This function makes a request to the spotify API
 function spotifyIt() {
     var song = input2;
-    if (song === undefined) {
+    if (!song) {
         song = 'The Sign Ace of Base';
     }
     spotify
