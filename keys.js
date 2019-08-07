@@ -8,7 +8,6 @@ exports.twitter = {
 exports.spotify = {
   id: process.env.SPOTIFY_ID,
   secret: process.env.SPOTIFY_SECRET,
-  it_is_a_cool_key: "this is test"
 };
 
 exports.movieAPIKey = process.env.MOVIE_API_KEY;
