@@ -8,8 +8,8 @@ const fileReader = require('./fileManager/fileReader');
 
 class LiriApp {
     constructor() {
-        this.command = 'do-what-it-says';
-        this.input = "lion";
+        this.command = process.argv[2];
+        this.input = process.argv[3];
         this.baseCommand = command.baseCommand;
         this.tweeterCommand = command.tweeter;
         this.spotifyCommand = command.spotify;
@@ -50,7 +50,7 @@ class LiriApp {
                 "movie-this" and movie name to get a movie`);
                 break;
         }
-        fileWritter.logCommand(this.input);
+        fileWritter.logCommand({command: this.command, input: this.input});
     }
 }
 

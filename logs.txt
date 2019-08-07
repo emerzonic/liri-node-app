@@ -1,7 +1,5 @@
-undefined
-undefined
-undefined
-lion
-lion
-I Want it That Way
-I Want it That Way
+
+
+command: spotify-this-song input: lion
+command: my-tweets input: input not available
+command: movie-it input: lion
