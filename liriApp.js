@@ -16,7 +16,7 @@ class LiriApp {
         this.movieCommand = command.movie;
     }
 
-    async executeCommand() {
+    executeCommand() {
         if (this.command === this.baseCommand) {
             fileReader.readFile(({
                 command,
