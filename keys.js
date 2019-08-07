@@ -1,5 +1,3 @@
-// console.log('this is loaded');
-
 exports.twitter = {
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -9,5 +7,11 @@ exports.twitter = {
 
 exports.spotify = {
   id: process.env.SPOTIFY_ID,
-  secret: process.env.SPOTIFY_SECRET
+  secret: process.env.SPOTIFY_SECRET,
+  it_is_a_cool_key: "this is test"
 };
+
+exports.movieAPIKey = process.env.MOVIE_API_KEY;
+
+
+
